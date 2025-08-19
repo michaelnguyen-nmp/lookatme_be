@@ -5,13 +5,13 @@ import User from "../models/User.js";
 // JWT
 export const generateAccessToken = (user) => {
   return jwt.sign({ id: user._id }, process.env.JWT_ACCESS_KEY, {
-    expiresIn: "15m",
+    expiresIn: "15d",
   });
 };
 
 export const generateRefreshToken = (user) => {
   return jwt.sign({ id: user._id }, process.env.JWT_REFRESH_KEY, {
-    expiresIn: "1d",
+    expiresIn: "365d",
   });
 };
 
@@ -31,9 +31,9 @@ export const refreshToken = (req, res) => {
 // Register
 export const register = async (req, res) => {
   try {
-    const { fullName, userName, email, phoneNumber, password } = req.body;
+    const { fullname, username, email, phoneNumber, password } = req.body;
 
-    const existing = await User.findOne({ $or: [{ email }, { userName }] });
+    const existing = await User.findOne({ $or: [{ email }, { username }] });
     if (existing)
       return res
         .status(400)
@@ -41,8 +41,8 @@ export const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
-      userName,
-      fullName,
+      username,
+      fullname,
       email,
       phoneNumber,
       password: hashedPassword,
@@ -58,9 +58,9 @@ export const register = async (req, res) => {
 // Login
 export const login = async (req, res) => {
   try {
-    const { userName, password } = req.body;
+    const { username, password } = req.body;
 
-    const user = await User.findOne({ userName });
+    const user = await User.findOne({ username });
     if (!user)
       return res.status(404).json({ message: "Invalid username. Try again!" });
 
@@ -86,14 +86,16 @@ export const login = async (req, res) => {
       accessToken,
       user: {
         _id: user._id,
-        userName: user.userName,
+        username: user.username,
+        fullname: user.fullname,
+        phoneNumber: user.phoneNumber,
         email: user.email,
         avatar: user.avatar,
         cover: user.cover,
         bio: user.bio,
+        location: user.location,
         followers: user.followers,
         following: user.following,
-        bio: user.bio,
       },
     });
   } catch (err) {

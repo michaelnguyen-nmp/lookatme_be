@@ -20,8 +20,9 @@
   },
   "homepage": "https://github.com/michaelnguyen-nmp/lookatme_be#readme",
   "dependencies": {
+    "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
-    "cloudinary": "^2.7.0",
+    "cloudinary": "^1.37.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
@@ -29,6 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.5",
     "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "socket.io": "^4.8.1"
   }
 }

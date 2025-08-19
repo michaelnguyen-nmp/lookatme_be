@@ -2,31 +2,32 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    userName: {
+    username: {
       type: String,
-      //   trim: true,
-      //   unique: true,
-      //   required: true,
+      trim: true,
+      unique: true,
+      required: true,
+      maxLength: 16,
     },
-    fullName: {
+    fullname: {
       type: String,
     },
     email: {
       type: String,
-      //   trim: true,
-      //   lowercase: true,
-      //   unique: true,
-      //   required: true,
+      trim: true,
+      lowercase: true,
+      unique: true,
+      required: true,
     },
     phoneNumber: {
       type: String,
-      // required: true,
-      // match: /^[0-9+\-()\s]{7,20}$/,
+      required: true,
+      match: /^[0-9+\-()\s]{7,20}$/,
     },
     password: {
       type: String,
-      //   required: true,
-      // minlength: 8
+      required: true,
+      minlength: 8,
     },
     avatar: {
       type: String,
@@ -36,7 +37,7 @@ const userSchema = new mongoose.Schema(
     },
     bio: {
       type: String,
-      // maxLength: 200
+      maxLength: 200,
     },
     location: {
       type: String,
